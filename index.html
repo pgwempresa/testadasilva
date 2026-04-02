@@ -3,14 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>&honey Deep Moist Treatment</title>
+    <title>&Honey | Milky Precious Ex Repair - Kit Completo Com 4 Itens</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Lightbox Review */
+        #lightbox-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        #lightbox-overlay.active { display: flex; }
+        #lightbox-overlay img {
+            max-width: 92vw;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        #lightbox-close {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            z-index: 10000;
+        }
+        .r-img-ph { cursor: pointer; }
+        .last-day-banner {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #ff5f6d, #ffc371);
+            color: white;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+        .last-day-banner i { font-size: 16px; }
+        .promo-info-box {
+            background: #fff5f5;
+            border: 1px solid #ffd0d0;
+            border-radius: 10px;
+            padding: 12px 14px;
+            font-size: 13px;
+            color: #c0392b;
+            font-weight: 500;
+            margin-top: 8px;
+        }
+    </style>
 </head>
 <body>
+
+    <!-- Lightbox para reviews -->
+    <div id="lightbox-overlay" onclick="closeLightbox()">
+        <i class="fa-solid fa-xmark" id="lightbox-close"></i>
+        <img id="lightbox-img" src="" alt="Review">
+    </div>
 
     <!-- Header fixo superior -->
     <header class="app-header">
@@ -18,12 +78,12 @@
             <button class="nav-btn"><i class="fa-solid fa-xmark"></i></button>
             <div class="search-bar">
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                <input type="text" value="sebastian oil dark" readonly>
+                <input type="text" value="&honey milky precious ex repair" readonly>
             </div>
             <button class="nav-btn"><i class="fa-solid fa-share"></i></button>
             <button class="nav-btn cart-btn">
                 <i class="fa-solid fa-cart-shopping"></i>
-                <span class="cart-badge">3</span>
+                <span class="cart-badge">1</span>
             </button>
             <button class="nav-btn"><i class="fa-solid fa-ellipsis"></i></button>
         </div>
@@ -41,11 +101,11 @@
         <!-- Visão Geral -->
         <section id="visao-geral" class="product-gallery">
             <div class="image-wrapper">
-                <img src="assets/product-1.jpg" alt="Kit Treatment 2.0">
+                <img src="assets/product-1.webp" alt="&honey Milky Precious Ex Repair Kit">
                 <div class="img-counter">1/2</div>
             </div>
             <div class="image-wrapper">
-                <img src="assets/product-2.jpg" alt="Kit &honey Shampoo 1.0 e Treatment 2.0">
+                <img src="assets/product-2.webp" alt="&honey Milky Precious Ex Repair - Kit Completo">
                 <div class="img-counter">2/2</div>
             </div>
         </section>
@@ -53,30 +113,27 @@
         <!-- Informações de Preço -->
         <section class="basic-info-wrapper">
             <div class="price-section">
-                <span class="discount-badge">-11%</span>
+                <span class="discount-badge">-88%</span>
                 <span class="currency">R$</span>
-                <span class="current-price">124,40</span>
+                <span class="current-price">59,90</span>
                 <span class="old-price-container">
-                    <i class="fa-solid fa-ticket old-price-icon"></i>
-                    <span class="old-price">R$ 139,90</span>
+                    <span class="old-price">R$ 499,90</span>
                 </span>
             </div>
-            <div class="installments-row">
-                <i class="fa-regular fa-credit-card"></i>
-                <span>3x R$ 41,46 <span class="no-interest">sem juros</span></span>
-                <i class="fa-solid fa-chevron-right chevron"></i>
+
+            <div class="last-day-banner">
+                <i class="fa-solid fa-fire"></i>
+                Último dia de oferta – Aproveite antes que acabe!
             </div>
-            
-            <div class="promo-tags">
-                <span class="promo-tag pink"><i class="fa-solid fa-ticket"></i> Desconto de R$ 15</span>
-                <span class="promo-tag light">Economize 3% com bônus</span>
-                <i class="fa-solid fa-chevron-right chevron"></i>
+
+            <div class="promo-info-box">
+                <i class="fa-solid fa-tag"></i> Promoção de lançamento: Kit completo com 4 itens por apenas <strong>R$ 59,90</strong> com <strong>frete grátis</strong>. Oferta válida somente hoje.
             </div>
 
             <div class="product-title-row">
                 <h1 class="product-title">
-                    <span class="rating-badge"><i class="fa-solid fa-star"></i> 4.4</span>
-                    &honey - Deep Moist Treatment (Step 2.0) 445g
+                    <span class="rating-badge"><i class="fa-solid fa-star"></i> 5.0</span>
+                    &Honey | Milky Precious Ex Repair - Kit Completo Com 4 Itens ( Último dia de Oferta)
                 </h1>
                 <button class="bookmark-btn"><i class="fa-regular fa-bookmark"></i></button>
             </div>
@@ -84,7 +141,7 @@
             <div class="product-ratings-info">
                 <i class="fa-solid fa-star star-color"></i>
                 <span class="rating-score">5.0</span>
-                <span class="reviews-count">(42)</span> <span class="separator">|</span> <span class="sold-count">270 vendidos</span>
+                <span class="reviews-count">(879)</span> <span class="separator">|</span> <span class="sold-count">2312 vendidos</span>
             </div>
 
             <div class="divider"></div>
@@ -119,20 +176,19 @@
 
         <div class="section-spacer"></div>
 
-        <!-- Ofertas (Cupons) -->
+        <!-- Ofertas -->
         <section class="offers-section">
             <div class="section-header">
                 <h2>Ofertas</h2>
                 <i class="fa-solid fa-chevron-right chevron"></i>
             </div>
-            <div class="coupon-card">
+            <div class="coupon-card" style="background: linear-gradient(135deg, #fff8f0, #fff3e8);">
                 <div class="coupon-left">
-                    <div class="coupon-title">Cupom de envio</div>
-                    <div class="coupon-desc">Desconto de R$ 30 no frete em pedidos acima de R$ 69</div>
+                    <div class="coupon-title" style="color: #c0392b;"><i class="fa-solid fa-fire" style="margin-right:6px;"></i>Promoção de Último Dia</div>
+                    <div class="coupon-desc">Kit completo de 4 itens por <strong>R$ 59,90</strong> com frete grátis. Oferta encerra hoje à meia-noite!</div>
                 </div>
                 <div class="coupon-right">
-                    <div class="coupon-badge">x3</div>
-                    <button class="btn-resgatar">Resgatar</button>
+                    <div class="coupon-badge" style="background: #c0392b;">HOT</div>
                 </div>
                 <div class="coupon-decor-circle top"></div>
                 <div class="coupon-decor-circle bottom"></div>
@@ -144,7 +200,7 @@
         <!-- Avaliações -->
         <section id="avaliacoes" class="reviews-section">
             <div class="section-header">
-                <h2>Avaliações dos clientes (42)</h2>
+                <h2>Avaliações dos clientes (879)</h2>
                 <span class="view-more">Ver mais <i class="fa-solid fa-chevron-right chevron"></i></span>
             </div>
             
@@ -174,7 +230,7 @@
                 <div class="review-item-variant">Item: Padrão</div>
                 <div class="review-text">Simplesmente maravilhoso muito bem embalado os produtos são lindos demais e muito cheirosos e ai...</div>
                 <div class="review-images">
-                    <div class="r-img-ph" style="background-image: url('assets/review-1.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="r-img-ph" onclick="openLightbox('assets/review-1.jpg')" style="background-image: url('assets/review-1.jpg'); background-size: cover; background-position: center;"></div>
                 </div>
             </div>
             
@@ -192,7 +248,7 @@
                 <div class="review-item-variant">Item: Padrão</div>
                 <div class="review-text">Parece um manteiga. Não vejo a hr de testar.<br>Aroma: Que cheiro bom. Cheiro de rica😉</div>
                 <div class="review-images">
-                    <div class="r-img-ph" style="background-image: url('assets/review-2.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="r-img-ph" onclick="openLightbox('assets/review-2.jpg')" style="background-image: url('assets/review-2.jpg'); background-size: cover; background-position: center;"></div>
                 </div>
             </div>
 
@@ -210,7 +266,7 @@
                 <div class="review-item-variant">Item: Padrão</div>
                 <div class="review-text">Chegou rapidinho, produtos originais e deixam o cabelo incrível! Muito hidratante.</div>
                 <div class="review-images">
-                    <div class="r-img-ph" style="background-image: url('assets/review-3.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="r-img-ph" onclick="openLightbox('assets/review-3.jpg')" style="background-image: url('assets/review-3.jpg'); background-size: cover; background-position: center;"></div>
                 </div>
             </div>
 
@@ -228,7 +284,7 @@
                 <div class="review-item-variant">Item: Padrão</div>
                 <div class="review-text">O cheiro é perfeito. Melhor shampoo que já comprei na vida. Recomendo muito!</div>
                 <div class="review-images">
-                    <div class="r-img-ph" style="background-image: url('assets/review-4.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="r-img-ph" onclick="openLightbox('assets/review-4.jpg')" style="background-image: url('assets/review-4.jpg'); background-size: cover; background-position: center;"></div>
                 </div>
             </div>
 
@@ -246,7 +302,7 @@
                 <div class="review-item-variant">Item: Padrão</div>
                 <div class="review-text">Vale cada centavo, chegou sem vazar em perfeitas condições.</div>
                 <div class="review-images">
-                    <div class="r-img-ph" style="background-image: url('assets/review-5.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="r-img-ph" onclick="openLightbox('assets/review-5.jpg')" style="background-image: url('assets/review-5.jpg'); background-size: cover; background-position: center;"></div>
                 </div>
             </div>
 
@@ -260,21 +316,6 @@
         
         <!-- Descrição / Detalhes -->
         <section id="descricao" class="store-section">
-            <div class="section-header">
-                <h2>Vídeos de criadores (2)</h2>
-            </div>
-            <div class="videos-row">
-                <div class="video-ph v-1">
-                    <i class="fa-solid fa-play play-icon"></i>
-                    <div class="video-author">Gabriela Hol...</div>
-                </div>
-                <div class="video-ph v-2">
-                    <i class="fa-solid fa-play play-icon"></i>
-                    <div class="video-author">Nohele Oliv...</div>
-                </div>
-            </div>
-
-            <div class="divider fat"></div>
 
             <div class="store-profile">
                 <div class="store-info-left">
@@ -297,25 +338,25 @@
             <div class="product-details-content">
                 <h2>Sobre este produto</h2>
                 
-                <h3 class="subsection-title">Detalhes</h3>
-                <div class="specs-grid">
-                    <div class="spec-label">Lista de<br>Ingredientes</div>
-                    <div class="spec-value">Water,Cetearyl<br>Alcohol,Amodimethicone,Behentrimonium Chloride,Glycerin,Ethylhexyl Palmitat...</div>
-                </div>
-                <a href="#" class="view-more-link">Ver mais</a>
-
                 <h3 class="subsection-title">Descrição</h3>
                 <div class="description-text">
-                    <p><strong>&honey Deep Moist Treatment Step 2.0</strong></p>
-                    <p>Tratamento nutritivo com mel cru e óleos orgânicos, para hidratar, proteger e restaurar a umidade natural dos fios.</p>
-                    <p>O <strong>&honey Deep Moist Treatment Step 2.0</strong> é a segunda etapa do ritual de hidratação profunda da &honey. Sua fórmula avançada combina <strong>mais de 90% de ingredientes hidratantes e protetores</strong>, com uma composição exclusiva de três tipos de mel: <strong>50% Manuka (Nova Zelândia), 30% Acácia (Hungria) e 20% mel cru japonês.</strong></p>
-                    <p>O tratamento nutre intensamente os fios, melhora a maleabilidade, controla o frizz e promove brilho, sem comprometer a leveza ou o toque natural dos cabelos.</p>
-                    <p><strong>Indicação</strong></p>
-                    <p>Indicado para cabelos secos, sensibilizados ou danificados. Ideal para quem deseja um tratamento profundo, com toque suave e fórmula clean.</p>
-                    <p><strong>Principais Ativos</strong></p>
-                    <ul>
-                        <li>Mel Cru (Manuka, Acácia, Japonês) – hidratação, reparação e brilho natural</li>
-                    </ul>
+                    <p>O <strong>&honey Milky Precious EX Repair</strong> é um sistema de cuidados capilares desenvolvido para cabelos danificados, ressecados e fragilizados, oferecendo nutrição intensa, reparação da fibra capilar e hidratação profunda.</p>
+                    <p>Inspirada na filosofia japonesa de cuidados com os cabelos, a linha combina mel, proteínas e óleos nutritivos para restaurar a maciez, o brilho e a elasticidade dos fios.</p>
+
+                    <p><strong>• Shampoo Step - 1.0 (500ml)</strong><br>
+                    Promove uma limpeza suave que remove impurezas sem comprometer a hidratação natural dos cabelos, preparando os fios para os tratamentos posteriores e mantendo o couro cabeludo equilibrado.</p>
+
+                    <p><strong>• Tratamento - Step 2.0 (500g)</strong><br>
+                    Atua profundamente na fibra capilar, auxiliando na recuperação dos fios danificados, fortalecendo os cabelos e ajudando a reduzir a quebra, devolvendo brilho, maciez e aparência saudável.</p>
+
+                    <p><strong>• Hair Pack - Step 1.5 (130g)</strong><br>
+                    Representa o coração reconstrutor do ritual &honey Milky. Desenvolvido para agir de forma profunda na fibra capilar, esse tratamento intensivo atua no córtex e na medula, repondo proteínas essenciais e restaurando a estrutura interna do fio com alta precisão biotecnológica. Ideal para fios fragilizados por químicas, desidratação extrema ou perda de massa.</p>
+
+                    <p><strong>• Hair Milk - Step 3.0 (180g)</strong><br>
+                    Desenvolvido com base na ciência da hidratação biomimética, o &honey Milky Precious EX Repair Hair Milk combina ativos de origem natural com tecnologia de encapsulamento para promover um tratamento leve, eficaz e contínuo dos fios. Sua textura leitosa oferece finalização profissional com absorção rápida, sem pesar — ideal para cabelos finos, porosos ou com frizz crônico.</p>
+
+                    <p><strong>Origem e qualidade</strong><br>
+                    Fabricado no Japão pela ViCREA Inc., líder na categoria de shampoos hidratantes no mercado japonês (INTAGE SRI+ 2020–2023). Distribuído agora no Brasil pelo Ela Usa.</p>
                 </div>
             </div>
             
@@ -327,7 +368,7 @@
     <!-- Barra estática inferior -->
     <footer class="bottom-bar">
         <div class="bottom-actions-left">
-            <button class="icon-btn">
+            <button class="icon-btn" onclick="window.location.href='checkout.html'">
                 <i class="fa-solid fa-store"></i>
                 <span>Loja</span>
             </button>
@@ -337,7 +378,7 @@
             </button>
         </div>
         <div class="bottom-actions-right">
-            <button class="btn-add-cart">Adicionar<br>ao carrinho</button>
+            <button class="btn-add-cart" onclick="window.location.href='checkout.html'">Adicionar<br>ao carrinho</button>
             <button class="btn-buy-now" onclick="window.location.href='checkout.html'">
                 Comprar agora
                 <div class="sub-text">Frete grátis</div>
@@ -345,6 +386,21 @@
         </div>
     </footer>
 
+    <!-- Lightbox Script -->
+    <script>
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox-overlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox-overlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
