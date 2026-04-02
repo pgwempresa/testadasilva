@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Checkout - Resumo do Pedido</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Scripts Adicionais: ViaCEP e Máscaras -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <style>
+        /* CSS Específico do Checkout */
+        body { background-color: #f6f6f6; }
+        
+        .checkout-header {
+            position: sticky; top: 0; left: 0; width: 100%; background-color: var(--bg-white); z-index: 100;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 12px 16px; border-bottom: 1px solid var(--divider); height: 60px; box-sizing: border-box;
+        }
+        .ch-back { position: absolute; left: 16px; font-size: 20px; color: #111; top: 50%; transform: translateY(-50%); cursor: pointer; }
+        .ch-title { font-size: 16px; font-weight: 700; color: #111; line-height: 1.2; margin-bottom: 2px;}
+        .ch-subtitle { font-size: 11px; color: #128c7e; font-weight: 600; display: flex; align-items: center; gap: 4px; }
+
+        .address-box { position: relative; background: #fff; padding: 16px; padding-bottom: 20px; margin-bottom: 8px; cursor: pointer; }
+        .addr-header { display: flex; align-items: center; justify-content: space-between; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+        .addr-header-left { display: flex; align-items: center; gap: 8px; }
+        .addr-header i { font-size: 14px; color: #555; }
+        .addr-text { font-size: 13px; color: #555; padding-left: 22px; line-height: 1.4; }
+        
+        /* Borda tracejada colorida do endereço */
+        .address-border {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 3px;
+            background: repeating-linear-gradient(
+                -45deg,
+                #fe2c55, #fe2c55 15px,
+                transparent 15px, transparent 20px,
+                #0ebdcd 20px, #0ebdcd 35px,
+                transparent 35px, transparent 40px
+            );
+        }
+
+        .store-header { display: flex; justify-content: space-between; align-items: center; font-size: 14px; margin-bottom: 12px; }
+        .store-header .sh-name { font-weight: 600; color: #111; }
+        .store-header .sh-note { font-size: 12px; color: var(--text-light); display: flex; align-items: center; gap: 4px; }
+
+        .product-card { display: flex; gap: 12px; margin-bottom: 16px; }
+        .prod-img { width: 80px; height: 80px; background-color: #f1ebd8; border-radius: 4px; display: flex; justify-content: center; align-items: center; position: relative; }
+        .prod-info { flex: 1; display: flex; flex-direction: column; }
+        .prod-rating-badge { font-size: 11px; color: #c48b26; font-weight: 600; background-color: #fff6e5; padding: 4px 0; margin-bottom: 4px; display: inline-block; }
+        .prod-title { font-size: 13px; color: #333; line-height: 1.4; margin-bottom: 6px; }
+        .prod-shield { background: #f5f5f5; color: #555; font-size: 10px; padding: 2px 6px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px; align-self: flex-start; margin-bottom: auto;}
+        
+        .price-qty-row { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 8px; }
+        .price-col { display: flex; flex-direction: column; gap: 2px; }
+        .p-main { font-size: 16px; font-weight: 700; color: var(--brand-pink); display: flex; align-items: center; gap: 4px; }
+        .p-old-row { font-size: 11px; color: var(--text-light); display: flex; align-items: center; gap: 4px; }
+        .p-old-row strike { text-decoration-color: #ccc; }
+        .p-off { background: #fff0f3; color: var(--brand-pink); padding: 1px 4px; border-radius: 2px; }
+        
+        .qty-selector { display: flex; border: 1px solid #ddd; border-radius: 4px; overflow: hidden; height: 26px; }
+        .qty-btn { width: 26px; background: #fff; display: flex; justify-content: center; align-items: center; font-size: 14px; color: #555; }
+        .qty-num { width: 32px; display: flex; justify-content: center; align-items: center; font-size: 13px; background: #fff; border-left: 1px solid #ddd; border-right: 1px solid #ddd; font-weight: 500; }
+
+        .shipping-method { display: flex; justify-content: space-between; align-items: flex-start; padding: 16px 0; border-top: 1px dashed var(--divider); }
+        .sh-left { display: flex; flex-direction: column; gap: 4px; }
+        .sh-date { font-size: 14px; font-weight: 600; color: #111; }
+        .sh-type { font-size: 12px; color: #555; }
+        .sh-right { font-size: 13px; color: #128c7e; font-weight: 500; display: flex; align-items: center; gap: 4px; }
+        .sh-right strike { color: var(--text-light); }
+
+        .discount-block { display: flex; justify-content: space-between; align-items: flex-start; padding: 14px 16px; background: #fff; margin-bottom: 8px; }
+        .disc-left { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #111; }
+        .disc-left i { color: var(--brand-pink); }
+        .disc-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+        .disc-badge { background: #e5f5f3; color: #128c7e; font-size: 11px; padding: 2px 6px; border-radius: 2px; display: flex; align-items: center; gap: 4px; }
+        .disc-value { background: #fff0f3; color: var(--brand-pink); font-size: 12px; font-weight: 600; padding: 2px 6px; border-radius: 4px; }
+
+        .summary-block { background: #fff; padding: 16px; margin-bottom: 8px; }
+        .sum-title { font-size: 14px; font-weight: 700; margin-bottom: 12px; }
+        .sum-row { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 8px; color: #333; }
+        .sum-row.sub { font-size: 12px; color: #666; margin-left: 12px; }
+        .sum-row.bold { font-weight: 700; color: #111; margin-top: 16px; font-size: 15px; border-top: 1px solid var(--divider); padding-top: 16px; }
+        .sum-subtext { text-align: right; font-size: 11px; color: var(--text-light); margin-top: -4px; margin-bottom: 12px; }
+        .savings-alert { background: #fff0f3; color: var(--brand-pink); font-size: 12px; font-weight: 500; padding: 10px; border-radius: 4px; display: flex; align-items: center; gap: 8px; margin-top: 12px; margin-left: -16px; margin-right: -16px; padding-left: 16px;}
+        
+        .payment-block { background: #fff; padding: 16px; margin-bottom: 8px; }
+        .pay-title { font-size: 15px; font-weight: 700; margin-bottom: 12px; }
+        .pay-option { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--divider); }
+        .pay-left { display: flex; align-items: center; gap: 12px; }
+        .pay-icon { width: 32px; height: 24px; background: #f5f5f5; border-radius: 4px; display: flex; justify-content: center; align-items: center; color: #333; border: 1px solid #ddd; }
+        .pay-text { font-size: 14px; font-weight: 500; color: #111; }
+        .radio-btn { width: 18px; height: 18px; border-radius: 50%; border: 1px solid #ccc; }
+        .pay-sub-details { padding-left: 44px; margin-top: -4px; margin-bottom: 8px; }
+
+        .terms-text { padding: 16px; font-size: 11px; color: var(--text-light); line-height: 1.5; text-align: center; }
+        .terms-text strong { color: #333; }
+
+        .bottom-checkout {
+            position: fixed; bottom: 0; width: 100%; background: #fff; border-top: 1px solid var(--divider); z-index: 100;
+            padding: 8px 16px; padding-bottom: calc(8px + env(safe-area-inset-bottom));
+        }
+        @media (min-width: 481px) { .bottom-checkout { left: 50%; transform: translateX(-50%); max-width: 480px; } }
+        
+        .ch-total-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+        .ch-tot-label { font-size: 14px; font-weight: 600; color: #111; }
+        .ch-tot-val { font-size: 18px; font-weight: 700; color: var(--brand-pink); }
+        
+        .btn-checkout { background: var(--brand-pink); color: white; width: 100%; border-radius: 20px; padding: 10px 0; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
+        .btn-checkout:disabled { background: #ccc; cursor: not-allowed; }
+        .btn-ch-m { font-size: 16px; font-weight: 600; margin-bottom: 2px;}
+        .btn-ch-s { font-size: 10px; opacity: 0.9; }
+
+        /* Loader */
+        .spinner { width: 20px; height: 20px; border: 3px solid rgba(255,255,255,.3); border-radius: 50%; border-top-color: #fff; animation: spin 1s ease-in-out infinite; display: none; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .color-teal { color: #128c7e !important; }
+        main { padding-bottom: 120px; }
+
+        /* Estilos do Formulário de Endereço */
+        .form-section-title { font-size: 13px; font-weight: 600; color: #777; margin: 16px 16px 8px; }
+        .form-group-bg { background-color: #fff; padding: 0 16px; margin-bottom: 12px; }
+        .form-input-row { display: flex; border-bottom: 1px solid var(--divider); position: relative; }
+        .form-input-row:last-child { border-bottom: none; }
+        .form-input-row input { width: 100%; border: none; outline: none; padding: 16px 0; font-size: 14px; color: #111; background: transparent; }
+        .form-input-row input::placeholder { color: #bbb; }
+        .form-input-prefix { color: #888; font-size: 14px; padding: 16px 16px 16px 0; display: flex; align-items: center; white-space: nowrap; flex-shrink: 0; }
+        .input-split { display: flex; border-bottom: 1px solid var(--divider); }
+        .input-split .form-input-row { flex: 1; border-bottom: none; }
+        .input-split .form-input-row:first-child { border-right: 1px solid var(--divider); padding-right: 12px; }
+        .input-split .form-input-row:last-child { padding-left: 12px; }
+        
+        .dropdown-icon { position: absolute; right: 0; top: 16px; color: #888; font-size: 12px; pointer-events: none;}
+        
+        .bottom-save { position: fixed; bottom: 0; width: 100%; background: #fff; padding: 12px 16px; padding-bottom: calc(12px + env(safe-area-inset-bottom)); border-top: 1px solid var(--divider); z-index: 100; text-align: center; }
+        @media (min-width: 481px) { .bottom-save { left: 50%; transform: translateX(-50%); max-width: 480px; } }
+        .bottom-save button { width: 100%; background-color: #ff8fa3; color: white; border-radius: 20px; font-weight: 600; font-size: 16px; padding: 12px 0; transition: 0.2s; }
+        .bottom-save button.active { background-color: var(--brand-pink); }
+        .form-disclaimer { font-size: 11px; text-align: center; color: #777; margin-bottom: 12px; line-height: 1.4; padding: 0 16px; }
+
+        .toggle-switch { width: 44px; height: 24px; background: #ddd; border-radius: 12px; position: relative; margin: 12px 0; }
+        .toggle-switch::after { content: ''; position: absolute; left: 2px; top: 2px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: 0.2s; }
+
+        .loyalty-banner { background: #e5f5f3; padding: 12px 16px; display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: #333; }
+        .loyalty-banner i { color: #128c7e; font-size: 16px; }
+
+        /* Esconder as setinhas (spinners) de inputs do tipo número */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            appearance: none;
+            margin: 0; 
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+            appearance: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- ========================================== -->
+    <!-- VIEW 1: Resumo do Pedido (Checkout Utama)  -->
+    <!-- ========================================== -->
+    <div id="view-checkout">
+        <header class="checkout-header">
+            <i class="fa-solid fa-chevron-left ch-back" onclick="window.location.href='index.html'"></i>
+            <div class="ch-title">Resumo do pedido</div>
+            <div class="ch-subtitle"><i class="fa-solid fa-square-check"></i> Finalização da compra segura garantida</div>
+        </header>
+
+        <main>
+            
+            <!-- Endereço (Estado Inicial - Vazio) -->
+            <section class="address-box" id="btn-open-address" onclick="openAddressForm()">
+                <!-- O que aparece ANTES de preencher: -->
+                <div id="address-empty-state" style="display: flex; align-items: center; justify-content: space-between; padding: 4px 0;">
+                    <div style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #111;">
+                        <i class="fa-solid fa-plus" style="color: #666;"></i> Adicionar endereço
+                    </div>
+                    <i class="fa-solid fa-chevron-right chevron"></i>
+                </div>
+
+                <!-- O que aparece DEPOIS de preencher: -->
+                <div id="address-filled-state" style="display: none;">
+                    <div class="addr-header">
+                        <div class="addr-header-left">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span id="display-name-cel">Nome, (+55)</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right chevron"></i>
+                    </div>
+                    <div class="addr-text" id="display-address">
+                        <!-- Endereço será injetado aqui -->
+                    </div>
+                </div>
+
+                <div class="address-border"></div>
+            </section>
+
+            <!-- Restante da Tela Normal ... -->
+            <section style="background: #fff; padding: 16px; margin-bottom: 8px;">
+                <div class="store-header">
+                    <span class="sh-name">elausabrasil</span>
+                    <span class="sh-note">Adicionar nota <i class="fa-solid fa-chevron-right chevron"></i></span>
+                </div>
+
+                <div class="prod-rating-badge">
+                    <i class="fa-solid fa-star" style="color:var(--gold);"></i> Muito bem avaliado! 4.8/5,0
+                </div>
+
+                <div class="product-card">
+                    <div class="prod-img" style="background-image: url('assets/product-1.jpg'); background-size: cover; background-position: center; border: 1px solid #ddd; background-color: transparent;"></div>
+                    <div class="prod-info">
+                        <div class="prod-title">
+                            <span class="rating-badge" style="vertical-align:text-bottom;"><i class="fa-solid fa-star"></i> 4.4</span> 
+                            &honey - Deep Moist Treatment (...
+                        </div>
+                        <div class="prod-shield"><i class="fa-solid fa-shield"></i> Devolução gratuita</div>
+                        <div class="price-qty-row">
+                            <div class="price-col">
+                                <span class="p-main">R$ 124,40 <i class="fa-solid fa-ticket" style="font-size:12px; margin-left:2px;"></i></span>
+                                <div class="p-old-row">
+                                    <strike>R$ 139,90</strike>
+                                    <span class="p-off">-11%</span>
+                                </div>
+                            </div>
+                            <div class="qty-selector">
+                                <button class="qty-btn"><i class="fa-solid fa-minus" style="font-size:10px;"></i></button>
+                                <div class="qty-num">1</div>
+                                <button class="qty-btn"><i class="fa-solid fa-plus" style="font-size:10px;"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="shipping-method">
+                    <div class="sh-left">
+                        <div class="sh-date">Receba até 8–14 de abr</div>
+                        <div class="sh-type">Envio padrão</div>
+                    </div>
+                    <div class="sh-right"><strike>R$ 21,99</strike> Grátis</div>
+                </div>
+            </section>
+
+            <section class="discount-block">
+                <div class="disc-left"><i class="fa-solid fa-ticket-simple"></i> Desconto do TikTok Shop</div>
+                <div class="disc-right">
+                    <div class="disc-badge">Frete grátis <i class="fa-solid fa-chevron-right chevron"></i></div>
+                    <div class="disc-value">- R$ 15,00</div>
+                </div>
+            </section>
+
+            <section class="summary-block">
+                <div class="sum-title">Resumo do pedido</div>
+                <div class="sum-row"><span>Subtotal do produto <i class="fa-solid fa-chevron-up" style="font-size:10px; margin-left:4px;"></i></span><span>R$ 124,40</span></div>
+                <div class="sum-row sub"><span>Preço original</span><span>R$ 139,90</span></div>
+                <div class="sum-row"><span>Taxa de envio</span><span>R$ 21,99</span></div>
+                <div class="sum-row"><span>Desconto de envio</span><span class="color-teal">- R$ 21,99</span></div>
+                <div class="savings-alert"><i class="fa-regular fa-face-laugh-beam"></i> Você está economizando R$ 37,49 nesse pedido.</div>
+                <div class="sum-row bold"><span>Total</span><span>R$ 124,40</span></div>
+                <div class="sum-subtext">Impostos inclusos</div>
+            </section>
+
+            <section class="payment-block" style="padding-bottom: 8px;">
+                <div class="pay-title">Forma de pagamento</div>
+                <div class="pay-option" style="border-bottom:none;">
+                    <div class="pay-left">
+                        <div class="pay-icon" style="background:transparent; color:#32bcad;"><i class="fa-brands fa-pix" style="font-size: 18px;"></i></div>
+                        <span class="pay-text" style="font-weight: 600;">Pix</span>
+                    </div>
+                    <div class="radio-btn" style="border: 5px solid var(--brand-pink); width: 20px; height: 20px;"></div>
+                </div>
+                <div class="pay-sub-details" style="padding-left: 44px; margin-top: -8px; margin-bottom: 8px;">
+                    <div class="pay-note">Aprovação imediata</div>
+                </div>
+            </section>
+
+            <div class="terms-text">
+                Ao fazer um pedido, você concorda com <strong>Termos de uso e venda do TikTok Shop</strong> e reconhece que leu e concordou com a <strong>Política de privacidade do TikTok</strong>.
+                <div class="savings-alert" style="text-align:left; justify-content:center; background:#ffeff2; padding:8px; margin: 12px 0 0 0;">
+                    <i class="fa-regular fa-face-laugh-beam"></i> Você está economizando R$ 37,49 nesse pedido.
+                </div>
+            </div>
+            
+        </main>
+
+        <div class="bottom-checkout">
+            <div class="ch-total-row">
+                <span class="ch-tot-label">Total (1 item)</span>
+                <span class="ch-tot-val">R$ 124,40</span>
+            </div>
+            <button class="btn-checkout" id="btn-finalizar-pedido" onclick="processPurchase()">
+                <div class="spinner"></div>
+                <div class="btn-content">
+                    <div class="btn-ch-m">Fazer pedido</div>
+                    <div class="btn-ch-s">O cupom expira em 07:37:01 | Frete grátis</div>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- VIEW 2: Adicionar Endereço                 -->
+    <!-- ========================================== -->
+    <div id="view-address-form" style="display: none; background: #f6f6f6; min-height: 100vh;">
+        <header class="checkout-header" style="height: 50px;">
+            <i class="fa-solid fa-chevron-left ch-back" onclick="closeAddressForm()"></i>
+            <div class="ch-title" style="font-size:15px;">Adicionar o novo endereço</div>
+        </header>
+
+        <div class="loyalty-banner">
+            <i class="fa-solid fa-truck-fast"></i> Você ganhou <span class="color-teal">Frete grátis</span>
+        </div>
+
+        <form style="padding-bottom: 120px;" onsubmit="saveAddress(event)">
+            <div class="form-section-title">Informações de contato</div>
+            <div class="form-group-bg">
+                <div class="form-input-row">
+                    <input type="text" id="ipt-nome" placeholder="Nome" value="" required>
+                </div>
+                <div class="form-input-row">
+                    <div class="form-input-prefix">BR +55</div>
+                    <input type="text" id="ipt-cel" placeholder="Número de telefone" value="" required>
+                </div>
+                <div class="form-input-row">
+                    <input type="email" id="ipt-email" placeholder="Endereço de e-mail (opcional)" value="">
+                </div>
+            </div>
+
+            <div class="form-section-title">Informações de endereço</div>
+            <div class="form-group-bg">
+                <div class="form-input-row">
+                    <input type="text" id="ipt-cep" placeholder="CEP/Código postal" value="" required onblur="checkCep(this.value)">
+                </div>
+                <div class="input-split">
+                    <div class="form-input-row">
+                        <input type="text" id="ipt-estado" placeholder="Estado/UF" value="" required>
+                        <i class="fa-solid fa-chevron-down dropdown-icon"></i>
+                    </div>
+                    <div class="form-input-row">
+                        <input type="text" id="ipt-cidade" placeholder="Cidade" value="" required>
+                        <i class="fa-solid fa-chevron-down dropdown-icon"></i>
+                    </div>
+                </div>
+                <div class="form-input-row">
+                    <input type="text" id="ipt-bairro" placeholder="Bairro/Distrito" value="" required>
+                </div>
+                <div class="form-input-row">
+                    <input type="text" id="ipt-endereco" placeholder="Endereço" value="" required>
+                </div>
+                <div class="form-input-row">
+                    <input type="text" id="ipt-numero" placeholder='Nº da residência. Use "s/n" se nenhum' value="" required>
+                </div>
+                <div class="form-input-row">
+                    <input type="text" id="ipt-complemento" placeholder="Apartamento, bloco, unidade etc. (opcional)" value="">
+                </div>
+            </div>
+
+            <div class="form-section-title">Informações fiscais</div>
+            <div class="form-group-bg">
+                <div class="form-input-row">
+                    <input type="text" id="ipt-cpf" placeholder="CPF" value="" required>
+                </div>
+                <div style="font-size: 11px; padding: 12px 0; color: #666;">
+                    O CPF será usado para emitir faturas.
+                </div>
+            </div>
+            
+            <div class="form-section-title">Configurações</div>
+            <div class="form-group-bg" style="display:flex; justify-content:space-between; align-items:center;">
+                <div style="font-size: 14px; font-weight:500;">Definir como padrão</div>
+                <div class="toggle-switch"></div>
+            </div>
+
+            <div class="bottom-save">
+                <div class="form-disclaimer">
+                    Leia a <strong>Política de privacidade do TikTok</strong> para saber mais sobre como usamos suas informações pessoais.
+                </div>
+                <button type="submit" class="active">Salvar</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Script de transição de abas (Mockup) -->
+    <script>
+        // Inicializar Máscaras
+        $(document).ready(function(){
+            $('#ipt-cel').mask('(00) 0 0000-0000');
+            $('#ipt-cep').mask('00000-000');
+            $('#ipt-cpf').mask('000.000.000-00');
+        });
+
+        function checkCep(cep) {
+            cep = cep.replace(/\D/g, '');
+            if (cep.length != 8) return;
+
+            fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                .then(res => res.json())
+                .then(data => {
+                    if (!data.erro) {
+                        document.getElementById('ipt-estado').value = data.uf;
+                        document.getElementById('ipt-cidade').value = data.localidade;
+                        document.getElementById('ipt-bairro').value = data.bairro;
+                        document.getElementById('ipt-endereco').value = data.logradouro;
+                    }
+                });
+        }
+
+        function openAddressForm() {
+            document.getElementById('view-checkout').style.display = 'none';
+            document.getElementById('view-address-form').style.display = 'block';
+            window.scrollTo(0, 0); 
+        }
+
+        function closeAddressForm() {
+            document.getElementById('view-address-form').style.display = 'none';
+            document.getElementById('view-checkout').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function saveAddress(event) {
+            event.preventDefault();
+
+            let nome = document.getElementById('ipt-nome').value;
+            let cel = document.getElementById('ipt-cel').value;
+            let endereco = document.getElementById('ipt-endereco').value;
+            let numero = document.getElementById('ipt-numero').value;
+            let bairro = document.getElementById('ipt-bairro').value;
+            let cidade = document.getElementById('ipt-cidade').value;
+            let estado = document.getElementById('ipt-estado').value;
+            let cep = document.getElementById('ipt-cep').value;
+            
+            let enderecoCompleto = `${endereco}, ${numero}, ${bairro}, ${cidade}, ${estado}, ${cep}`;
+
+            document.getElementById('display-name-cel').innerText = `${nome}, (+55)${cel}`;
+            document.getElementById('display-address').innerText = enderecoCompleto;
+
+            closeAddressForm();
+
+            document.getElementById('address-empty-state').style.display = 'none';
+            document.getElementById('address-filled-state').style.display = 'block';
+        }
+
+        async function processPurchase() {
+            // Verificar se o endereço foi preenchido
+            if (document.getElementById('address-filled-state').style.display === 'none') {
+                alert('Por favor, adicione seu endereço antes de continuar.');
+                openAddressForm();
+                return;
+            }
+
+            const btn = document.getElementById('btn-finalizar-pedido');
+            const spinner = btn.querySelector('.spinner');
+            const content = btn.querySelector('.btn-content');
+
+            // Estado de carregamento
+            btn.disabled = true;
+            spinner.style.display = 'block';
+            content.style.opacity = '0';
+
+            // Dados do formulário
+            const payload = {
+                amount: 12440, // R$ 124,40 em centavos
+                payment_method: "pix",
+                customer: {
+                    name: document.getElementById('ipt-nome').value,
+                    email: document.getElementById('ipt-email').value || "cliente@loja.com",
+                    document: {
+                        number: document.getElementById('ipt-cpf').value.replace(/\D/g, ''),
+                        type: "CPF"
+                    },
+                    phone: document.getElementById('ipt-cel').value.replace(/\D/g, '')
+                },
+                items: [
+                    {
+                        title: "&honey - Deep Moist Treatment",
+                        unit_price: 12440,
+                        quantity: 1
+                    }
+                ]
+            };
+
+            try {
+                const response = await fetch('/api/pix', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.qrCode) {
+                    // Salvar dados no localStorage para a página pix.html
+                    localStorage.setItem('lastPixData', JSON.stringify(data));
+                    localStorage.setItem('lastPurchaseValue', '124,40');
+                    window.location.href = 'pix.html';
+                } else {
+                    alert('Erro ao gerar Pix: ' + (data.message || 'Tente novamente mais tarde.'));
+                    btn.disabled = false;
+                    spinner.style.display = 'none';
+                    content.style.opacity = '1';
+                }
+            } catch (error) {
+                console.error('Erro na requisição:', error);
+                alert('Erro de conexão com o servidor.');
+                btn.disabled = false;
+                spinner.style.display = 'none';
+                content.style.opacity = '1';
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Código do pagamento - Pix</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --brand-pink: #fe2c55;
+            --text-primary: #111;
+            --text-secondary: #73747b;
+            --bg-page: #ffffff;
+            --divider: #f0f0f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(180deg, #f0faff 0%, #ffffff 20%);
+            min-height: 100vh;
+            color: var(--text-primary);
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            position: relative;
+        }
+        .btn-back { font-size: 20px; cursor: pointer; }
+        .header-title { flex: 1; text-align: center; font-size: 16px; font-weight: 700; margin-right: 20px; }
+
+        .main-content { padding: 24px 20px; }
+
+        .status-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+        .status-info h1 { font-size: 22px; font-weight: 800; line-height: 1.2; margin-bottom: 4px; }
+        .status-info .amount { font-size: 22px; font-weight: 800; display: block; }
+        
+        .clock-icon {
+            width: 44px;
+            height: 44px;
+            background: #ff9800;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .expiry-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #fe2c55;
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-top: 12px;
+        }
+
+        .expiry-text { font-size: 13px; color: #777; margin-top: 8px; }
+
+        .pix-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid #f0f0f0;
+        }
+
+        .pix-header { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+        .pix-logo { width: 40px; height: 24px; object-fit: contain; background: #f0f0f0; border-radius: 4px; }
+        .pix-label { font-size: 15px; font-weight: 700; color: #111; }
+
+        .pix-code-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .pix-code {
+            width: 100%;
+            font-size: 18px;
+            font-weight: 600;
+            color: #111;
+            word-break: break-all;
+            line-height: 1.4;
+            padding-right: 40px;
+        }
+        /* Fallback for long code display like in the image */
+        .pix-code-display {
+            font-size: 22px;
+            font-weight: 700;
+            color: #111;
+            letter-spacing: 1px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-bottom: 20px;
+        }
+
+        .btn-copy {
+            background: #fe2c55;
+            color: white;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .instruction-footer { font-size: 12px; color: #333; line-height: 1.4; margin-top: 24px; padding: 0 4px; }
+        .instruction-footer strong { font-weight: 700; }
+
+        .how-to-pay { margin-top: 40px; }
+        .how-to-pay h2 { font-size: 20px; font-weight: 800; margin-bottom: 12px; }
+        .how-to-pay p { font-size: 14px; color: #333; line-height: 1.5; }
+
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-width: 480px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 12px 20px;
+            padding-bottom: calc(12px + env(safe-area-inset-bottom));
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .btn-order {
+            background: #f1f1f2;
+            color: #111;
+            width: 100%;
+            border: none;
+            border-radius: 4px;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        /* Confirmação flutuante */
+        #toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            display: none;
+            z-index: 1000;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <i class="fa-solid fa-chevron-left btn-back" onclick="window.history.back()"></i>
+        <div class="header-title">Código do pagamento</div>
+    </header>
+
+    <main class="main-content">
+        <div class="status-row">
+            <div class="status-info">
+                <h1>Aguardando o pagamento</h1>
+                <span class="amount" id="display-amount">R$ 124,40</span>
+            </div>
+            <div class="clock-icon">
+                <i class="fa-regular fa-clock"></i>
+            </div>
+        </div>
+
+        <div class="expiry-badge">
+            Vence em <span id="timer">23:59:59</span>
+        </div>
+
+        <div class="expiry-text">
+            Prazo <span id="current-deadline">16:23, 2 de abr 2026</span>
+        </div>
+
+        <div class="pix-card">
+            <div class="pix-header">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Logo_Pix.png" alt="Pix" class="pix-logo">
+                <span class="pix-label">PIX</span>
+            </div>
+            
+            <div class="pix-code-display" id="pix-code-trunc">00020101021226770014BR...</div>
+
+            <button class="btn-copy" onclick="copyPix()">
+                <i class="fa-regular fa-copy"></i> Copiar
+            </button>
+        </div>
+
+        <div class="instruction-footer">
+            Para acessar esta página no app, abra <strong>Loja > Pedidos > Sem pagamento > Visualizar o código</strong>
+        </div>
+
+        <div class="how-to-pay">
+            <h2>Como fazer pagamentos com PIX?</h2>
+            <p>Copie o código de pagamento acima, selecione Pix no seu app de internet ou de banco e cole o código.</p>
+        </div>
+    </main>
+
+    <div class="bottom-bar">
+        <button class="btn-order" onclick="window.location.href='index.html'">Ver pedido</button>
+    </div>
+
+    <div id="toast">Copiado com sucesso!</div>
+
+    <script>
+        // Carregar dados
+        const pixData = JSON.parse(localStorage.getItem('lastPixData')) || {};
+        const amount = localStorage.getItem('lastPurchaseValue') || '124,40';
+        
+        document.getElementById('display-amount').innerText = 'R$ ' + amount;
+        
+        const fullPixCode = pixData.qrCode || "00020101021226770014BR.GOV.BCB.PIX011400000000000000";
+        document.getElementById('pix-code-trunc').innerText = fullPixCode.substring(0, 25) + "...";
+
+        // Deadline (Data de hoje + 1 dia)
+        const now = new Date();
+        const deadlineDate = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+        const options = { hour: '2-digit', minute: '2-digit', day: 'numeric', month: 'short', year: 'numeric' };
+        document.getElementById('current-deadline').innerText = now.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}) + ", " + now.toLocaleDateString('pt-BR', {day:'numeric', month:'short', year:'numeric'});
+
+        // Timer
+        let time = 24 * 60 * 60;
+        const timerEl = document.getElementById('timer');
+        setInterval(() => {
+            time--;
+            if (time < 0) return;
+            const h = Math.floor(time / 3600);
+            const m = Math.floor((time % 3600) / 60);
+            const s = time % 60;
+            timerEl.innerText = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+        }, 1000);
+
+        function copyPix() {
+            navigator.clipboard.writeText(fullPixCode).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => toast.style.display = 'none', 2000);
+            });
+        }
+
+        // Polling de Status
+        if (pixData.id) {
+            setInterval(async () => {
+                try {
+                    const res = await fetch(`/api/status?id=${pixData.id}`);
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data.status === 'paid' || data.status === 'APPROVED' || data.status === 'PAGO') {
+                            window.location.href = 'obrigado.html';
+                        }
+                    }
+                } catch (e) { console.error(e); }
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Pedido Confirmado - Obrigado!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --brand-pink: #fe2c55;
+            --brand-green: #00d282;
+            --text-primary: #111;
+            --text-secondary: #73747b;
+            --bg-page: #f9f9fb;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-page);
+            min-height: 100vh;
+            color: var(--text-primary);
+            max-width: 480px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .success-header {
+            background: white;
+            padding: 60px 20px 40px;
+            text-align: center;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .check-wrapper {
+            width: 80px;
+            height: 80px;
+            background-color: var(--brand-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 40px;
+            margin: 0 auto 24px;
+            animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        h1 { font-size: 24px; font-weight: 800; margin-bottom: 8px; }
+        .success-header p { font-size: 15px; color: var(--text-secondary); line-height: 1.5; padding: 0 20px; }
+
+        .order-content { padding: 24px 20px; flex: 1; }
+
+        .info-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            border: 1px solid #f0f0f0;
+        }
+
+        .info-title { font-size: 14px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .info-title i { color: var(--brand-pink); }
+
+        .info-item { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 8px; }
+        .info-item .label { color: var(--text-secondary); }
+        .info-item .value { font-weight: 600; text-align: right; }
+
+        .tracking-box {
+            background: #e6f9f2;
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid #ccf2e4;
+            margin-top: 8px;
+        }
+        .tracking-box p { font-size: 13px; color: #007045; line-height: 1.5; }
+        .tracking-box strong { font-weight: 700; }
+
+        .footer {
+            padding: 24px 20px;
+            padding-bottom: calc(24px + env(safe-area-inset-bottom));
+        }
+
+        .btn-home {
+            background: var(--text-primary);
+            color: white;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <section class="success-header">
+        <div class="check-wrapper">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <h1>Pedido confirmado!</h1>
+        <p>Prepare-se para o brilho! Seu pagamento foi aprovado e o estoque já foi notificado.</p>
+    </section>
+
+    <main class="order-content">
+        <div class="info-card">
+            <div class="info-title"><i class="fa-solid fa-box"></i> Detalhes do envio</div>
+            <div class="info-item">
+                <span class="label">Status:</span>
+                <span class="value color-teal" style="color: #00a85f;">Em preparação</span>
+            </div>
+            <div class="info-item">
+                <span class="label">Previsão:</span>
+                <span class="value">8–14 de abr</span>
+            </div>
+            <div class="info-item">
+                <span class="label">Método:</span>
+                <span class="value">Envio padrão (Grátis)</span>
+            </div>
+        </div>
+
+        <div class="tracking-box">
+            <p><strong>Aviso:</strong> Você receberá o código de rastreamento no seu E-mail e WhatsApp assim que o produto for postado!</p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <a href="index.html" class="btn-home">Voltar para o início</a>
+    </footer>
+
+    <script>
+        // Efeito de Confete
+        function triggerConfetti() {
+            var count = 200;
+            var defaults = { origin: { y: 0.7 } };
+
+            function fire(particleRatio, opts) {
+                confetti(Object.assign({}, defaults, opts, {
+                    particleCount: Math.floor(count * particleRatio)
+                }));
+            }
+
+            fire(0.25, { spread: 26, startVelocity: 55 });
+            fire(0.2, { spread: 60 });
+            fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+            fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+            fire(0.1, { spread: 120, startVelocity: 45 });
+        }
+
+        window.onload = function() {
+            triggerConfetti();
+            // Limpar dados de compra
+            localStorage.removeItem('lastPixData');
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>&honey Deep Moist Treatment</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header fixo superior -->
+    <header class="app-header">
+        <div class="top-nav">
+            <button class="nav-btn"><i class="fa-solid fa-xmark"></i></button>
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" value="sebastian oil dark" readonly>
+            </div>
+            <button class="nav-btn"><i class="fa-solid fa-share"></i></button>
+            <button class="nav-btn cart-btn">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="cart-badge">3</span>
+            </button>
+            <button class="nav-btn"><i class="fa-solid fa-ellipsis"></i></button>
+        </div>
+        <div class="tabs">
+            <span class="tab active" data-target="#visao-geral">Visão geral</span>
+            <span class="tab" data-target="#avaliacoes">Avaliações</span>
+            <span class="tab" data-target="#descricao">Descrição</span>
+            <span class="tab">Recomendações</span>
+        </div>
+    </header>
+
+    <!-- Área rolável principal -->
+    <main class="content-scroll">
+        
+        <!-- Visão Geral -->
+        <section id="visao-geral" class="product-gallery">
+            <div class="image-wrapper">
+                <img src="assets/product-1.jpg" alt="Kit Treatment 2.0">
+                <div class="img-counter">1/2</div>
+            </div>
+            <div class="image-wrapper">
+                <img src="assets/product-2.jpg" alt="Kit &honey Shampoo 1.0 e Treatment 2.0">
+                <div class="img-counter">2/2</div>
+            </div>
+        </section>
+
+        <!-- Informações de Preço -->
+        <section class="basic-info-wrapper">
+            <div class="price-section">
+                <span class="discount-badge">-11%</span>
+                <span class="currency">R$</span>
+                <span class="current-price">124,40</span>
+                <span class="old-price-container">
+                    <i class="fa-solid fa-ticket old-price-icon"></i>
+                    <span class="old-price">R$ 139,90</span>
+                </span>
+            </div>
+            <div class="installments-row">
+                <i class="fa-regular fa-credit-card"></i>
+                <span>3x R$ 41,46 <span class="no-interest">sem juros</span></span>
+                <i class="fa-solid fa-chevron-right chevron"></i>
+            </div>
+            
+            <div class="promo-tags">
+                <span class="promo-tag pink"><i class="fa-solid fa-ticket"></i> Desconto de R$ 15</span>
+                <span class="promo-tag light">Economize 3% com bônus</span>
+                <i class="fa-solid fa-chevron-right chevron"></i>
+            </div>
+
+            <div class="product-title-row">
+                <h1 class="product-title">
+                    <span class="rating-badge"><i class="fa-solid fa-star"></i> 4.4</span>
+                    &honey - Deep Moist Treatment (Step 2.0) 445g
+                </h1>
+                <button class="bookmark-btn"><i class="fa-regular fa-bookmark"></i></button>
+            </div>
+            
+            <div class="product-ratings-info">
+                <i class="fa-solid fa-star star-color"></i>
+                <span class="rating-score">5.0</span>
+                <span class="reviews-count">(42)</span> <span class="separator">|</span> <span class="sold-count">270 vendidos</span>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="shipping-info">
+                <div class="shipping-main">
+                    <i class="fa-solid fa-truck-fast"></i>
+                    <span class="free-shipping-badge">Frete grátis</span> 
+                    <span class="delivery-date">Receba até 8–14 de abr</span>
+                </div>
+                <div class="shipping-fee">
+                    <span>Taxa de envio: <del>R$ 21,99</del></span>
+                </div>
+                <i class="fa-solid fa-chevron-right chevron arrow-top-right"></i>
+            </div>
+
+             <div class="divider"></div>
+
+            <div class="protection-info">
+                <div class="protection-header">
+                    <i class="fa-solid fa-shield-halved secure-icon"></i> <span class="bold">Proteção do cliente</span>
+                    <i class="fa-solid fa-chevron-right chevron"></i>
+                </div>
+                <div class="protection-grid">
+                    <div class="protect-item"><i class="fa-solid fa-check"></i> Devolução gratuita</div>
+                    <div class="protect-item"><i class="fa-solid fa-check"></i> Reembolso automático por danos</div>
+                    <div class="protect-item"><i class="fa-solid fa-check"></i> Pagamento seguro</div>
+                    <div class="protect-item"><i class="fa-solid fa-check"></i> Reembolso automático por atraso</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-spacer"></div>
+
+        <!-- Ofertas (Cupons) -->
+        <section class="offers-section">
+            <div class="section-header">
+                <h2>Ofertas</h2>
+                <i class="fa-solid fa-chevron-right chevron"></i>
+            </div>
+            <div class="coupon-card">
+                <div class="coupon-left">
+                    <div class="coupon-title">Cupom de envio</div>
+                    <div class="coupon-desc">Desconto de R$ 30 no frete em pedidos acima de R$ 69</div>
+                </div>
+                <div class="coupon-right">
+                    <div class="coupon-badge">x3</div>
+                    <button class="btn-resgatar">Resgatar</button>
+                </div>
+                <div class="coupon-decor-circle top"></div>
+                <div class="coupon-decor-circle bottom"></div>
+            </div>
+        </section>
+
+        <div class="section-spacer"></div>
+
+        <!-- Avaliações -->
+        <section id="avaliacoes" class="reviews-section">
+            <div class="section-header">
+                <h2>Avaliações dos clientes (42)</h2>
+                <span class="view-more">Ver mais <i class="fa-solid fa-chevron-right chevron"></i></span>
+            </div>
+            
+            <div class="rating-overview">
+                <span class="big-score">5.0</span><span class="total-score">/5</span>
+                <div class="stars-container">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <i class="fa-solid fa-circle-info info-icon"></i>
+            </div>
+
+            <div class="review-tags">
+                <span class="tag">cheiro agradável (11)</span>
+                <span class="tag">textura densa (4)</span>
+                <span class="tag">aparência bonita (4)</span>
+            </div>
+
+            <!-- Review 1 -->
+            <div class="review-item">
+                <div class="reviewer-header">
+                    <div class="avatar-ph avatar-1"></div>
+                    <span class="reviewer-name">a**a</span>
+                </div>
+                <div class="stars-container small">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <div class="review-item-variant">Item: Padrão</div>
+                <div class="review-text">Simplesmente maravilhoso muito bem embalado os produtos são lindos demais e muito cheirosos e ai...</div>
+                <div class="review-images">
+                    <div class="r-img-ph" style="background-image: url('assets/review-1.jpg'); background-size: cover; background-position: center;"></div>
+                </div>
+            </div>
+            
+            <div class="divider slim"></div>
+
+            <!-- Review 2 -->
+            <div class="review-item">
+                <div class="reviewer-header">
+                    <div class="avatar-ph avatar-2"></div>
+                    <span class="reviewer-name">k**s</span>
+                </div>
+                <div class="stars-container small">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <div class="review-item-variant">Item: Padrão</div>
+                <div class="review-text">Parece um manteiga. Não vejo a hr de testar.<br>Aroma: Que cheiro bom. Cheiro de rica😉</div>
+                <div class="review-images">
+                    <div class="r-img-ph" style="background-image: url('assets/review-2.jpg'); background-size: cover; background-position: center;"></div>
+                </div>
+            </div>
+
+            <div class="divider slim"></div>
+
+            <!-- Review 3 -->
+            <div class="review-item">
+                <div class="reviewer-header">
+                    <div class="avatar-ph" style="background: #3c54a5;"></div>
+                    <span class="reviewer-name">m**r</span>
+                </div>
+                <div class="stars-container small">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <div class="review-item-variant">Item: Padrão</div>
+                <div class="review-text">Chegou rapidinho, produtos originais e deixam o cabelo incrível! Muito hidratante.</div>
+                <div class="review-images">
+                    <div class="r-img-ph" style="background-image: url('assets/review-3.jpg'); background-size: cover; background-position: center;"></div>
+                </div>
+            </div>
+
+            <div class="divider slim"></div>
+
+            <!-- Review 4 -->
+            <div class="review-item">
+                <div class="reviewer-header">
+                    <div class="avatar-ph" style="background: #8b688c;"></div>
+                    <span class="reviewer-name">l**t</span>
+                </div>
+                <div class="stars-container small">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <div class="review-item-variant">Item: Padrão</div>
+                <div class="review-text">O cheiro é perfeito. Melhor shampoo que já comprei na vida. Recomendo muito!</div>
+                <div class="review-images">
+                    <div class="r-img-ph" style="background-image: url('assets/review-4.jpg'); background-size: cover; background-position: center;"></div>
+                </div>
+            </div>
+
+            <div class="divider slim"></div>
+
+            <!-- Review 5 -->
+            <div class="review-item">
+                <div class="reviewer-header">
+                    <div class="avatar-ph" style="background: #cd853f;"></div>
+                    <span class="reviewer-name">j**a</span>
+                </div>
+                <div class="stars-container small">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <div class="review-item-variant">Item: Padrão</div>
+                <div class="review-text">Vale cada centavo, chegou sem vazar em perfeitas condições.</div>
+                <div class="review-images">
+                    <div class="r-img-ph" style="background-image: url('assets/review-5.jpg'); background-size: cover; background-position: center;"></div>
+                </div>
+            </div>
+
+            <div class="section-header bordered-top">
+                <h2 style="margin-top: 16px;">Avaliações da loja (23,4 mil)</h2>
+                <i class="fa-solid fa-chevron-right chevron" style="margin-top: 16px;"></i>
+            </div>
+        </section>
+
+        <div class="section-spacer"></div>
+        
+        <!-- Descrição / Detalhes -->
+        <section id="descricao" class="store-section">
+            <div class="section-header">
+                <h2>Vídeos de criadores (2)</h2>
+            </div>
+            <div class="videos-row">
+                <div class="video-ph v-1">
+                    <i class="fa-solid fa-play play-icon"></i>
+                    <div class="video-author">Gabriela Hol...</div>
+                </div>
+                <div class="video-ph v-2">
+                    <i class="fa-solid fa-play play-icon"></i>
+                    <div class="video-author">Nohele Oliv...</div>
+                </div>
+            </div>
+
+            <div class="divider fat"></div>
+
+            <div class="store-profile">
+                <div class="store-info-left">
+                    <div class="store-logo">ELA USA</div>
+                    <div class="store-details">
+                        <div class="store-name">elausabrasil</div>
+                        <div class="store-sales">144.1K vendido(s)</div>
+                    </div>
+                </div>
+                <button class="btn-visit">Visitar</button>
+            </div>
+            
+            <div class="store-stats" style="border-bottom: none; padding-bottom: 0;">
+                <span><b>94%</b> responde em 24 horas</span>
+                <span><b>95%</b> envios pontuais</span>
+            </div>
+
+            <div class="divider fat" style="margin-top: 14px;"></div>
+
+            <div class="product-details-content">
+                <h2>Sobre este produto</h2>
+                
+                <h3 class="subsection-title">Detalhes</h3>
+                <div class="specs-grid">
+                    <div class="spec-label">Lista de<br>Ingredientes</div>
+                    <div class="spec-value">Water,Cetearyl<br>Alcohol,Amodimethicone,Behentrimonium Chloride,Glycerin,Ethylhexyl Palmitat...</div>
+                </div>
+                <a href="#" class="view-more-link">Ver mais</a>
+
+                <h3 class="subsection-title">Descrição</h3>
+                <div class="description-text">
+                    <p><strong>&honey Deep Moist Treatment Step 2.0</strong></p>
+                    <p>Tratamento nutritivo com mel cru e óleos orgânicos, para hidratar, proteger e restaurar a umidade natural dos fios.</p>
+                    <p>O <strong>&honey Deep Moist Treatment Step 2.0</strong> é a segunda etapa do ritual de hidratação profunda da &honey. Sua fórmula avançada combina <strong>mais de 90% de ingredientes hidratantes e protetores</strong>, com uma composição exclusiva de três tipos de mel: <strong>50% Manuka (Nova Zelândia), 30% Acácia (Hungria) e 20% mel cru japonês.</strong></p>
+                    <p>O tratamento nutre intensamente os fios, melhora a maleabilidade, controla o frizz e promove brilho, sem comprometer a leveza ou o toque natural dos cabelos.</p>
+                    <p><strong>Indicação</strong></p>
+                    <p>Indicado para cabelos secos, sensibilizados ou danificados. Ideal para quem deseja um tratamento profundo, com toque suave e fórmula clean.</p>
+                    <p><strong>Principais Ativos</strong></p>
+                    <ul>
+                        <li>Mel Cru (Manuka, Acácia, Japonês) – hidratação, reparação e brilho natural</li>
+                    </ul>
+                </div>
+            </div>
+            
+        </section>
+        
+        <div style="height: 100px;"></div> <!-- Bottom spacer -->
+    </main>
+
+    <!-- Barra estática inferior -->
+    <footer class="bottom-bar">
+        <div class="bottom-actions-left">
+            <button class="icon-btn">
+                <i class="fa-solid fa-store"></i>
+                <span>Loja</span>
+            </button>
+            <button class="icon-btn">
+                <i class="fa-regular fa-message"></i>
+                <span>Chat</span>
+            </button>
+        </div>
+        <div class="bottom-actions-right">
+            <button class="btn-add-cart">Adicionar<br>ao carrinho</button>
+            <button class="btn-buy-now" onclick="window.location.href='checkout.html'">
+                Comprar agora
+                <div class="sub-text">Frete grátis</div>
+            </button>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
