@@ -8,6 +8,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- TikTok Pixel Code -->
+    <script>
+    !function (w, d, t) {
+      w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=r+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
+      ttq.load('D470E4RC77U2P8MCJJR0');
+      ttq.page();
+      // Purchase event = PIX gerado (sem duplicar no obrigado)
+      ttq.track('CompletePayment', { content_type: 'product', value: 59.90, currency: 'BRL' });
+    }(window, document, 'ttq');
+    </script>
+    <!-- End TikTok Pixel Code -->
+
     <style>
         :root {
             --brand-pink: #fe2c55;
@@ -231,7 +244,7 @@
     <script>
         // Carregar dados
         const pixData = JSON.parse(localStorage.getItem('lastPixData')) || {};
-        const amount = localStorage.getItem('lastPurchaseValue') || '124,40';
+        const amount = localStorage.getItem('lastPurchaseValue') || '59,90';
         
         document.getElementById('display-amount').innerText = 'R$ ' + amount;
         

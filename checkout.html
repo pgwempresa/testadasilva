@@ -12,6 +12,19 @@
     <!-- Scripts Adicionais: ViaCEP e Máscaras -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+    <!-- TikTok Pixel Code -->
+    <script>
+    !function (w, d, t) {
+      w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=r+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
+      ttq.load('D470E4RC77U2P8MCJJR0');
+      ttq.page();
+      // InitiateCheckout event
+      ttq.track('InitiateCheckout', { content_type: 'product', value: 59.90, currency: 'BRL' });
+    }(window, document, 'ttq');
+    </script>
+    <!-- End TikTok Pixel Code -->
+
     <style>
         /* CSS Específico do Checkout */
         body { background-color: #f6f6f6; }
@@ -240,7 +253,7 @@
                 </div>
                 <div class="shipping-method">
                     <div class="sh-left">
-                        <div class="sh-date">Receba até 8–14 de abr</div>
+                        <div class="sh-date" id="ch-delivery-date">Receba até ...</div>
                         <div class="sh-type">Envio padrão</div>
                     </div>
                     <div class="sh-right"><strike>R$ 21,99</strike> Grátis</div>
@@ -297,7 +310,7 @@
                 <div class="spinner"></div>
                 <div class="btn-content">
                     <div class="btn-ch-m">Fazer pedido</div>
-                    <div class="btn-ch-s">O cupom expira em 07:37:01 | Frete grátis</div>
+                    <div class="btn-ch-s">A oferta expira em <span id="ch-timer">00:00:00</span> | Frete grátis</div>
                 </div>
             </button>
         </div>
@@ -524,6 +537,35 @@
                 content.style.opacity = '1';
             }
         }
+
+        // Datas de entrega dinâmicas
+        function formatDeliveryDate(daysFromNow) {
+            const d = new Date();
+            d.setDate(d.getDate() + daysFromNow);
+            const months = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+            return d.getDate() + ' de ' + months[d.getMonth()];
+        }
+        const chDelivEl = document.getElementById('ch-delivery-date');
+        if (chDelivEl) chDelivEl.innerText = 'Receba até ' + formatDeliveryDate(6) + '–' + formatDeliveryDate(12);
+
+        // Timer dinâmico do botão (meia-noite de hoje)
+        function startCheckoutTimer() {
+            const timerSpan = document.getElementById('ch-timer');
+            if (!timerSpan) return;
+            function update() {
+                const now = new Date();
+                const midnight = new Date(now);
+                midnight.setHours(23,59,59,999);
+                let diff = Math.max(0, Math.floor((midnight - now) / 1000));
+                const h = Math.floor(diff / 3600);
+                const m = Math.floor((diff % 3600) / 60);
+                const s = diff % 60;
+                timerSpan.innerText = h.toString().padStart(2,'0') + ':' + m.toString().padStart(2,'0') + ':' + s.toString().padStart(2,'0');
+            }
+            update();
+            setInterval(update, 1000);
+        }
+        startCheckoutTimer();
     </script>
 
 </body>
