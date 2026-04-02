@@ -335,7 +335,7 @@
             <div class="form-section-title">Informações de endereço</div>
             <div class="form-group-bg">
                 <div class="form-input-row">
-                    <input type="text" id="ipt-cep" placeholder="CEP/Código postal" value="" required onblur="checkCep(this.value)">
+                    <input type="text" id="ipt-cep" placeholder="CEP/Código postal" value="" required>
                 </div>
                 <div class="input-split">
                     <div class="form-input-row">
@@ -388,28 +388,36 @@
 
     <!-- Script de transição de abas (Mockup) -->
     <script>
-        // Inicializar Máscaras
-        $(document).ready(function(){
-            $('#ipt-cel').mask('(00) 0 0000-0000');
-            $('#ipt-cep').mask('00000-000');
-            $('#ipt-cpf').mask('000.000.000-00');
-        });
-
         function checkCep(cep) {
+            console.log("Checking CEP:", cep);
             cep = cep.replace(/\D/g, '');
             if (cep.length != 8) return;
 
             fetch(`https://viacep.com.br/ws/${cep}/json/`)
                 .then(res => res.json())
                 .then(data => {
+                    console.log("ViaCEP response:", data);
                     if (!data.erro) {
                         document.getElementById('ipt-estado').value = data.uf;
                         document.getElementById('ipt-cidade').value = data.localidade;
                         document.getElementById('ipt-bairro').value = data.bairro;
                         document.getElementById('ipt-endereco').value = data.logradouro;
                     }
-                });
+                })
+                .catch(err => console.error("ViaCEP Error:", err));
         }
+
+        $(document).ready(function(){
+            // Inicializar Máscaras
+            $('#ipt-cel').mask('(00) 0 0000-0000');
+            $('#ipt-cep').mask('00000-000');
+            $('#ipt-cpf').mask('000.000.000-00');
+
+            // Evento de Blur para o CEP (mais robusto via jQuery)
+            $('#ipt-cep').on('blur', function() {
+                checkCep($(this).val());
+            });
+        });
 
         function openAddressForm() {
             document.getElementById('view-checkout').style.display = 'none';
