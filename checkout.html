@@ -463,26 +463,30 @@
             spinner.style.display = 'block';
             content.style.opacity = '0';
 
-            // Dados do formulário
+            // Dados do formulário (Ajustados 100% conforme a documentação oficial da Bestfy)
             const payload = {
-                amount: 12440, // R$ 124,40 em centavos
-                payment_method: "pix",
+                amount: 12440, // R$ 124,40 em centavos (124.40 * 100)
+                paymentMethod: "pix",
                 customer: {
                     name: document.getElementById('ipt-nome').value,
                     email: document.getElementById('ipt-email').value || "cliente@loja.com",
                     document: {
                         number: document.getElementById('ipt-cpf').value.replace(/\D/g, ''),
-                        type: "CPF"
+                        type: "cpf" // Documentação pede minúsculo
                     },
                     phone: document.getElementById('ipt-cel').value.replace(/\D/g, '')
                 },
                 items: [
                     {
                         title: "&honey - Deep Moist Treatment",
-                        unit_price: 12440,
-                        quantity: 1
+                        unitPrice: 12440,
+                        quantity: 1,
+                        tangible: true // CAMPO OBRIGATÓRIO SEGUNDO A DOC
                     }
-                ]
+                ],
+                pix: {
+                    expiresInDays: 1
+                }
             };
 
             try {
