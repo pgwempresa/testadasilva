@@ -133,9 +133,8 @@ section { background-color: var(--bg-white); padding: 14px 16px; width: 100%; }
 .r-4 { background-color: #ddd; }
 .r-img-overlay { position: absolute; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.4); color: white; font-size: 14px; display: flex; align-items: center; justify-content: center; border-radius: 6px; }
 
-/* Bottom Fix Correção de Botões Exprimidor */
-.bottom-bar { position: fixed; bottom: 0; left: 0; width: 100%; background-color: var(--bg-white); display: flex; align-items: center; border-top: 1px solid var(--divider); padding: 6px 12px; padding-bottom: calc(6px + env(safe-area-inset-bottom)); z-index: 100; box-sizing: border-box; }
-@media (min-width: 481px) { .bottom-bar { left: 50%; transform: translateX(-50%); max-width: 480px; } }
+/* Bottom Fix Correção de Botões */
+.bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; max-width: 480px; margin: 0 auto; background-color: var(--bg-white); display: flex; align-items: center; border-top: 1px solid var(--divider); padding: 8px 12px; padding-bottom: calc(8px + env(safe-area-inset-bottom)); z-index: 200; box-sizing: border-box; }
 
 .bottom-actions-left { display: flex; gap: 12px; padding-right: 12px; flex-shrink: 0;}
 .icon-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #333; width: 36px; }
