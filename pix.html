@@ -84,56 +84,63 @@
 
         .pix-card {
             background: white;
-            border-radius: 12px;
-            padding: 20px;
+            border-radius: 16px;
+            padding: 24px;
             margin-top: 24px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-            border: 1px solid #f0f0f0;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
+            border: 1px solid #e8e8e8;
         }
 
-        .pix-header { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
-        .pix-logo { width: 40px; height: 24px; object-fit: contain; background: #f0f0f0; border-radius: 4px; }
-        .pix-label { font-size: 15px; font-weight: 700; color: #111; }
+        .pix-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+        .pix-logo-svg { width: 32px; height: 32px; }
+        .pix-label { font-size: 16px; font-weight: 700; color: #111; }
 
-        .pix-code-container {
+        .pix-code-box {
+            background: #f5f6f8;
+            border: 1px solid #e0e2e6;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
             position: relative;
-            margin-bottom: 20px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.04);
         }
-        .pix-code {
-            width: 100%;
-            font-size: 18px;
+        .pix-code-label {
+            font-size: 11px;
             font-weight: 600;
-            color: #111;
-            word-break: break-all;
-            line-height: 1.4;
-            padding-right: 40px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
         }
-        /* Fallback for long code display like in the image */
         .pix-code-display {
-            font-size: 22px;
-            font-weight: 700;
-            color: #111;
-            letter-spacing: 1px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            word-break: break-all;
+            line-height: 1.5;
+            font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
         }
 
         .btn-copy {
-            background: #fe2c55;
+            background: linear-gradient(135deg, #fe2c55, #e91e43);
             color: white;
             width: 100%;
             border: none;
-            border-radius: 8px;
-            padding: 14px;
+            border-radius: 12px;
+            padding: 16px;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
             cursor: pointer;
+            box-shadow: 0 4px 12px rgba(254,44,85,0.3);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        .btn-copy:active {
+            transform: scale(0.97);
+            box-shadow: 0 2px 6px rgba(254,44,85,0.2);
         }
 
         .instruction-footer { font-size: 12px; color: #333; line-height: 1.4; margin-top: 24px; padding: 0 4px; }
@@ -214,14 +221,20 @@
 
         <div class="pix-card">
             <div class="pix-header">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Logo_Pix.png" alt="Pix" class="pix-logo">
-                <span class="pix-label">PIX</span>
+                <svg class="pix-logo-svg" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M362.9 362.9c-16.6 16.6-43.5 16.6-60.1 0L195.6 255.7c-4.7-4.7-12.3-4.7-17 0l-107 107.1c-16.6 16.6-43.5 16.6-60.1 0l-4.2-4.2 126.5-126.5c16.6-16.6 43.5-16.6 60.1 0l107.2 107.2c4.7 4.7 12.3 4.7 17 0L445.6 211.8l-4.2-4.2c-16.6-16.6-16.6-43.5 0-60.1l4.2-4.2 66.4 66.4-66.4 66.4-4.2-4.2c-16.6-16.6-16.6-43.5 0-60.1l4.2-4.2-121.9 121.9c-16.6 16.6-43.5 16.6-60.1 0z" fill="#32BCAD"/>
+                    <path d="M149.1 149.1c16.6-16.6 43.5-16.6 60.1 0l107.2 107.2c4.7 4.7 12.3 4.7 17 0l107-107.1c16.6-16.6 43.5-16.6 60.1 0l4.2 4.2-126.5 126.5c-16.6 16.6-43.5 16.6-60.1 0L211 172.7c-4.7-4.7-12.3-4.7-17 0L66.4 300.2l4.2 4.2c16.6 16.6 16.6 43.5 0 60.1l-4.2 4.2L0 302.3l66.4-66.4 4.2 4.2c16.6 16.6 16.6 43.5 0 60.1l-4.2 4.2 121.9-121.9c16.6-16.6 43.5-16.6 60.1 0z" fill="#32BCAD"/>
+                </svg>
+                <span class="pix-label">Pix Copia e Cola</span>
             </div>
             
-            <div class="pix-code-display" id="pix-code-trunc">00020101021226770014BR...</div>
+            <div class="pix-code-box">
+                <div class="pix-code-label">Código Pix</div>
+                <div class="pix-code-display" id="pix-code-trunc">00020101021226770014BR...</div>
+            </div>
 
             <button class="btn-copy" onclick="copyPix()">
-                <i class="fa-regular fa-copy"></i> Copiar
+                <i class="fa-regular fa-copy"></i> Copiar código
             </button>
         </div>
 
@@ -249,7 +262,7 @@
         document.getElementById('display-amount').innerText = 'R$ ' + amount;
         
         const fullPixCode = pixData.qrCode || "00020101021226770014BR.GOV.BCB.PIX011400000000000000";
-        document.getElementById('pix-code-trunc').innerText = fullPixCode.substring(0, 25) + "...";
+        document.getElementById('pix-code-trunc').innerText = fullPixCode;
 
         // Deadline (Data de hoje + 1 dia)
         const now = new Date();
